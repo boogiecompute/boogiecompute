@@ -1,15 +1,17 @@
 <div align="center">
 
-### Rent a GPU by the hour, pay with the stocks you already hold
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0f0e,50:15803d,100:22c55e&height=180&section=header&text=Boogie&fontSize=64&fontColor=eafff1&animation=fadeIn&fontAlignY=34" width="100%" alt="Boogie" />
 
-Boogie is a compute marketplace on Robinhood Chain. Pick a machine, pay from your
-wallet in USDG or tokenized NVDA, SPY, QQQ and TSLA, and get a card that boots
-ready to work.
+### Rent a GPU by the hour. Pay with the stocks you already hold.
 
-[![Site](https://img.shields.io/badge/site-boogiecompute.com-22C55E?style=flat-square)](https://boogiecompute.com)
-[![Docs](https://img.shields.io/badge/docs-boogiecompute.com%2Fdocs-22C55E?style=flat-square)](https://boogiecompute.com/docs)
-[![X](https://img.shields.io/badge/X-@Boogie__Software-111111?style=flat-square)](https://x.com/Boogie_Software)
-[![License](https://img.shields.io/badge/license-MIT-555555?style=flat-square)](https://github.com/boogiecompute/boogie-contracts/blob/main/LICENSE)
+<img src="https://readme-typing-svg.demolab.com?font=Space+Mono&weight=700&size=17&pause=2600&color=22C55E&center=true&vCenter=true&width=760&lines=Pick+a+machine%2C+pay+from+your+wallet%2C+get+a+card+that+boots+ready+to+work.;NVDA%2C+SPY%2C+QQQ%2C+TSLA+or+USDG.+The+swap+happens+inside+the+order.;Hours+start+when+the+machine+is+up%2C+not+when+you+pay.;Unused+time+comes+back.+Nothing+runs+longer+than+it+was+paid+for." alt="" />
+
+[![Site](https://img.shields.io/badge/site-boogiecompute.com-22C55E?style=for-the-badge&labelColor=0d0f0e)](https://boogiecompute.com)
+[![App](https://img.shields.io/badge/app-rent%20a%20GPU-22C55E?style=for-the-badge&labelColor=0d0f0e)](https://app.boogiecompute.com)
+[![Docs](https://img.shields.io/badge/docs-read-8b938e?style=for-the-badge&labelColor=0d0f0e)](https://boogiecompute.com/docs)
+[![X](https://img.shields.io/badge/X-@Boogie__Software-111111?style=for-the-badge&labelColor=0d0f0e)](https://x.com/Boogie_Software)
+
+<sub>Robinhood Chain · settled onchain · no account, no API key</sub>
 
 </div>
 
@@ -17,57 +19,63 @@ ready to work.
 
 ## The idea
 
-Renting compute usually means a sales call, a quota request or a queue, and buying
-a card means owning a depreciating machine for work that lasts an afternoon. The
-work is short and heavy. Owning is long and expensive.
+Renting compute usually means a sales call, a quota request or a queue. Buying a
+card means owning a depreciating machine for work that lasts an afternoon.
+
+The work is short and heavy. Owning is long and expensive.
 
 Boogie sells hours. You approve a ceiling in the asset you already hold, the
-contract sells exactly as much of it as the hours cost, and the remainder comes
+contract sells exactly as much of it as those hours cost, and the remainder comes
 back in the same transaction. Nobody holds an equity position between the quote
 and the machine.
 
 ```
-  your wallet          the contract              the machine
-  NVDA, SPY, QQQ  ->   sells what the hours  ->  boots with the tool
-  TSLA or USDG         actually cost             you picked
+   your wallet              the contract                 the machine
+   ───────────              ────────────                 ───────────
+   NVDA  SPY  QQQ           sells only what the          boots with the tool
+   TSLA  USDG        ──▶    hours actually cost   ──▶    you picked, ready
+                            returns the rest             to work
 ```
 
-## What is running today
+## Running today
 
-**Rentals settle onchain.** Every order is a transaction you can read, and the
-price agreed at checkout is the amount recorded.
-
-**Machines arrive ready.** Choose a notebook with PyTorch, ComfyUI for images and
-video, a local model with a chat window, or an OpenAI-compatible endpoint. The
-models come down while the machine boots, so the tool is useful the moment it
-opens.
-
-**Hours start when the machine does.** Boot takes minutes and somebody pays for
-them. That somebody is us.
-
-**Nothing runs longer than it was paid for.** When the time ends the machine is
-shut down and released. Stop earlier and the unused hours come back to the wallet
-that paid.
-
-**No account anywhere.** Your SSH key is bound to your wallet by a signature, and
-that binding is what decides whose key goes on the machine.
+| | |
+|---|---|
+| **Settled onchain** | Every order is a transaction you can read. The price at checkout is the amount recorded. |
+| **Machines arrive ready** | A notebook with PyTorch, ComfyUI, a local model with a chat window, or an OpenAI-compatible endpoint. Models download while the machine boots. |
+| **Hours start at boot** | Booting takes minutes and somebody pays for them. That somebody is us. |
+| **Nothing overruns** | Time ends, machine stops. Stop earlier and the unused hours come back to the wallet that paid. |
+| **No account** | Your SSH key is bound to your wallet by a signature. That binding decides whose key goes on the machine. |
+| **Funds in one step** | Send USDC from six networks and it lands as USDG, usually within seconds. |
 
 ## Renting from code
 
-There is no API key to request. The wallet that pays is what proves who you are,
-so a script or an agent rents on exactly the same terms as a person, with no human
-in the path.
+No API key to request. The wallet that pays is what proves who you are, so a
+script or an agent rents on the same terms as a person, with no human in the path.
 
 ```python
 listings = requests.get("https://app.boogiecompute.com/api/catalog").json()["listings"]
 machine  = min(listings, key=lambda m: m["usdPerHour"])
-quote    = requests.post(f"{API}/api/quote", json={
-    "machineId": machine["id"], "hours": 1, "payer": wallet.address,
+
+quote = requests.post("https://app.boogiecompute.com/api/quote", json={
+    "machineId": machine["id"],
+    "hours": 1,
+    "template": 1,              # 0 notebook · 1 ComfyUI · 2 local LLM · 3 model API
+    "payer": wallet.address,
 }).json()
 ```
 
-Full walkthrough in [the docs](https://boogiecompute.com/docs#api) and a working
-example in [boogie-contracts](https://github.com/boogiecompute/boogie-contracts).
+Six calls cover the whole path. Full walkthrough in the [docs](https://boogiecompute.com/docs#api).
+
+## Repositories
+
+| | | |
+|---|---|---|
+| [**boogie-contracts**](https://github.com/boogiecompute/boogie-contracts) | Settlement contract, tests and a worked example of renting from code | MIT |
+
+The contract is live at
+[`0x96Ce…F107`](https://robinhoodchain.blockscout.com/address/0x96Ce146534837BC995a8e65F45A34fEFFaF9F107)
+on Robinhood Chain.
 
 ## Next
 
@@ -77,5 +85,6 @@ proving the hours a host actually served, because supply nobody can verify is
 worth nothing to the people renting it.
 
 <div align="center">
+<br>
 <sub>Compute you rent by the hour, that behaves like it belongs to you.</sub>
 </div>
