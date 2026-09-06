@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0f0e,50:15803d,100:22c55e&height=180&section=header&text=Boogie&fontSize=64&fontColor=eafff1&animation=fadeIn&fontAlignY=34" width="100%" alt="Boogie" />
+<img src="assets/banner.png" alt="Boogie" width="100%" />
 
 ### Rent a GPU by the hour. Pay with the stocks you already hold.
 
