@@ -71,7 +71,12 @@ Six calls cover the whole path. Full walkthrough in the [docs](https://boogiecom
 
 | | | |
 |---|---|---|
-| [**boogie-contracts**](https://github.com/boogiecompute/boogie-contracts) | Settlement contract, tests and a worked example of renting from code | MIT |
+| [**boogie-contracts**](https://github.com/boogiecompute/boogie-contracts) | The settlement contract as deployed, its tests and deploy script | v1.0.0 |
+| [**boogie-py**](https://github.com/boogiecompute/boogie-py) | Rent from Python. `pip install boogiecompute`, import as `boogie` | v0.2.0 |
+| [**boogie-js**](https://github.com/boogiecompute/boogie-js) | Rent from JavaScript. No dependencies, runs on the built-in `fetch` | v0.2.0 |
+
+Both clients stop at the same line: they never hold a key and never sign a
+transaction. Settling the quote stays in your code.
 
 The contract is live at
 [`0x96Ce…F107`](https://robinhoodchain.blockscout.com/address/0x96Ce146534837BC995a8e65F45A34fEFFaF9F107)
