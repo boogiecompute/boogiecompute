@@ -1,95 +1,31 @@
-<div align="center">
+<p align="center">
+  <img src="assets/banner.png" alt="StockBack" width="100%" />
+</p>
 
-<img src="assets/banner.png" alt="Boogie" width="100%" />
+<!-- logo: drop the mark here -->
 
-### Rent a GPU by the hour. Pay with the stocks you already hold.
+<h3 align="center">Buy from the brand. Own the brand.</h3>
 
-<img src="https://readme-typing-svg.demolab.com?font=Space+Mono&weight=700&size=17&pause=2600&color=22C55E&center=true&vCenter=true&width=760&lines=Pick+a+machine%2C+pay+from+your+wallet%2C+get+a+card+that+boots+ready+to+work.;NVDA%2C+SPY%2C+QQQ%2C+TSLA+or+USDG.+The+swap+happens+inside+the+order.;Hours+start+when+the+machine+is+up%2C+not+when+you+pay.;Unused+time+comes+back.+Nothing+runs+longer+than+it+was+paid+for." alt="" />
+<p align="center">
+  Receipts and order emails, paid back in the brand's own tokenized stock.<br/>
+  A Costco run pays in COST. Netflix pays in NFLX. GameStop pays in GME.<br/>
+  Live on Robinhood Chain.
+</p>
 
-[![Site](https://img.shields.io/badge/site-boogiecompute.com-22C55E?style=for-the-badge&labelColor=0d0f0e)](https://boogiecompute.com)
-[![App](https://img.shields.io/badge/app-rent%20a%20GPU-22C55E?style=for-the-badge&labelColor=0d0f0e)](https://app.boogiecompute.com)
-[![Docs](https://img.shields.io/badge/docs-read-8b938e?style=for-the-badge&labelColor=0d0f0e)](https://boogiecompute.com/docs)
-[![X](https://img.shields.io/badge/X-@Boogie__Software-111111?style=for-the-badge&labelColor=0d0f0e)](https://x.com/Boogie_Software)
-
-<sub>Robinhood Chain · settled onchain · no account, no API key</sub>
-
-</div>
+<p align="center">
+  <a href="https://usestockback.xyz">Website</a> ·
+  <a href="https://usestockback.xyz/app">Shelf</a> ·
+  <a href="https://usestockback.xyz/scan">Scan a receipt</a> ·
+  <a href="https://usestockback.xyz/docs">Docs</a> ·
+  <a href="https://x.com/StockBackfam">X</a>
+</p>
 
 ---
 
-## The idea
+**How it works.** Photograph the till receipt or forward the order email. A model reads the merchant, the date and the total, checks the receipt is real and not already claimed, and matches the merchant to its ticker. The reward is bought at market as a tokenized share and sent to your own wallet in one step. Every brand on the shelf prints how long the last hundred rewards took to settle, in minutes, so you know before you scan.
 
-Renting compute usually means a sales call, a quota request or a queue. Buying a
-card means owning a depreciating machine for work that lasts an afternoon.
+**What is here**
 
-The work is short and heavy. Owning is long and expensive.
+- [stockback](https://github.com/stockbackrh/stockback): the site, the in-browser receipt reader, the claims API and the settlement keeper.
 
-Boogie sells hours. You approve a ceiling in the asset you already hold, the
-contract sells exactly as much of it as those hours cost, and the remainder comes
-back in the same transaction. Nobody holds an equity position between the quote
-and the machine.
-
-```
-   your wallet              the contract                 the machine
-   ───────────              ────────────                 ───────────
-   NVDA  SPY  QQQ           sells only what the          boots with the tool
-   TSLA  USDG        ──▶    hours actually cost   ──▶    you picked, ready
-                            returns the rest             to work
-```
-
-## Running today
-
-| | |
-|---|---|
-| **Settled onchain** | Every order is a transaction you can read. The price at checkout is the amount recorded. |
-| **Machines arrive ready** | A notebook with PyTorch, ComfyUI, a local model with a chat window, or an OpenAI-compatible endpoint. Models download while the machine boots. |
-| **Hours start at boot** | Booting takes minutes and somebody pays for them. That somebody is us. |
-| **Nothing overruns** | Time ends, machine stops. Stop earlier and the unused hours come back to the wallet that paid. |
-| **No account** | Your SSH key is bound to your wallet by a signature. That binding decides whose key goes on the machine. |
-| **Funds in one step** | Send USDC from six networks and it lands as USDG, usually within seconds. |
-
-## Renting from code
-
-No API key to request. The wallet that pays is what proves who you are, so a
-script or an agent rents on the same terms as a person, with no human in the path.
-
-```python
-listings = requests.get("https://app.boogiecompute.com/api/catalog").json()["listings"]
-machine  = min(listings, key=lambda m: m["usdPerHour"])
-
-quote = requests.post("https://app.boogiecompute.com/api/quote", json={
-    "machineId": machine["id"],
-    "hours": 1,
-    "template": 1,              # 0 notebook · 1 ComfyUI · 2 local LLM · 3 model API
-    "payer": wallet.address,
-}).json()
-```
-
-Six calls cover the whole path. Full walkthrough in the [docs](https://boogiecompute.com/docs#api).
-
-## Repositories
-
-| | | |
-|---|---|---|
-| [**boogie-contracts**](https://github.com/boogiecompute/boogie-contracts) | The settlement contract as deployed, its tests and deploy script | v1.0.0 |
-| [**boogie-py**](https://github.com/boogiecompute/boogie-py) | Rent from Python. `pip install boogiecompute`, import as `boogie` | v0.2.0 |
-| [**boogie-js**](https://github.com/boogiecompute/boogie-js) | Rent from JavaScript. No dependencies, runs on the built-in `fetch` | v0.2.0 |
-
-Both clients stop at the same line: they never hold a key and never sign a
-transaction. Settling the quote stays in your code.
-
-The contract is live at
-[`0x96Ce…F107`](https://robinhoodchain.blockscout.com/address/0x96Ce146534837BC995a8e65F45A34fEFFaF9F107)
-on Robinhood Chain.
-
-## Next
-
-Work that survives the machine, so a folder follows you to the next card you rent.
-Then hosting, so an idle GPU earns instead of collecting dust. That one waits on
-proving the hours a host actually served, because supply nobody can verify is
-worth nothing to the people renting it.
-
-<div align="center">
-<br>
-<sub>Compute you rent by the hour, that behaves like it belongs to you.</sub>
-</div>
+No points, no coupons, no card to apply for. Keep the receipt. It is a share now.
