@@ -26,6 +26,10 @@
 
 **What is here**
 
-- [stockback](https://github.com/stockbackrh/stockback): the site, the in-browser receipt reader, the claims API and the settlement keeper.
+- [stockback](https://github.com/stockbackrh/stockback): the site, the scanner, the claims API and the keeper, wired together.
+- [receipt-reader](https://github.com/stockbackrh/receipt-reader): reads a till receipt in the browser. OCR, merchant match, total, date, fingerprint.
+- [shelf](https://github.com/stockbackrh/shelf): every brand that pays in its own stock, its rate, its proof routes, its token on Robinhood Chain.
+- [settlement-keeper](https://github.com/stockbackrh/settlement-keeper): one transaction from an accepted claim to shares in the claimant's wallet.
+- [settlement-log](https://github.com/stockbackrh/settlement-log): the settlement medians the shelf prints, appended every few hours.
 
 No points, no coupons, no card to apply for. Keep the receipt. It is a share now.
